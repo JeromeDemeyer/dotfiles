@@ -1,0 +1,116 @@
+#.screenrc 
+#$Id: .screenrc,v 1.1 2013/12/06 10:43:20 jdemeyer Exp jdemeyer $#
+# Jerome DEMEYER
+# intended use PuTTY > Linux > screen
+password none
+#######################################
+defutf8 on
+utf8 on
+defencoding UTF-8
+encoding UTF-8
+
+# don't display the copyright page
+startup_message off
+
+# emulate .logout message
+pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
+
+# do not process ^S/^Q
+defflow off           
+
+# do not make every shell in every window a login shell
+#shell -$SHELL
+deflogin off
+
+# detach on hangup
+autodetach on
+
+# no annoying audible bell, please
+vbell off      # visual bell is disabled in SCREEN and in PuTTY :)
+vbell_msg ""
+vbellwait 0
+bell_msg ""
+
+# Messages are displayed only a second
+msgminwait 0
+msgwait 1
+
+# enable support for the "alternate screen" capability in all windows ?
+# disable alternate screen (so PuTTY can scrollback)
+altscreen off
+#termcapinfo xterm* ti@:te@ 
+
+# Hardstatus line shows as title bar in putty, so use host name
+defhstatus "^EH"
+
+defscrollback 10000
+scrollback 10000
+obuflimit 1024
+
+
+################
+#
+#attrcolor b ".I"
+defbce "on"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'    # 256 colors !
+termcapinfo xterm|xterms|xs|rxvt ti@:te@	# add rollback capability
+term xterm-256color
+
+caption always "%{Bk}%{+u} %="
+#hardstatus alwayslastline "%{Kk} %H %{kK}%{kw} %-w%50>%{BW} %n %t %{-}%+w%<%{- K}%{kk} %=%{K}%D %d %M %{B}|%{w} %c "
+hardstatus alwayslastline "%{Kk} %H %{kK}%{kw} %-w%50>%{BW} %n %t %{-}%+w%<%{- K}%{kk} %=%{K}%D %d %M %{B}|%{w} %c "
+
+bindkey "[D" prev  # change window with ctrl-left
+bindkey "[C" next  # change window with ctrl-right
+
+# Scroll up with ctrl-up
+bindkey -d "[A" eval copy "stuff ^b"
+bindkey -m "[A" stuff ^b
+
+# Scroll Up with alt-PgUp
+bindkey -d "[5~" eval copy "stuff ^b"
+bindkey -m "[5~" "stuff ^b"
+
+# Scroll down with ctrl-down
+bindkey -d "[B" eval copy "stuff ^f"
+bindkey -m "[B" stuff ^f
+
+# Scroll down with alt-PgDn
+bindkey -d "[6~" eval copy "stuff ^f"
+bindkey -m "[6~" "stuff ^f"
+
+
+
+################
+#
+# keybindings
+#
+#remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+#make them better
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
+bind X lockscreen
+
+
+################
+#
+# default windows
+#
+screen -t local 0
+chdir /var/log
+screen -t log 1 tail -f messages
+chdir ~/bin
+screen -t bin 2
+chdir ~/bin
+screen -t EDITOR 3 vim
+chdir /tmp
+screen -t tmp 4
