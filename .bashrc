@@ -15,6 +15,9 @@ HISTSIZE=20000
 shopt -s histappend
 shopt -s cmdhist
 
+#on nettoie le terminal apres chaque commande...
+PROMPT_COMMAND='echo -n -e "\0033k\0033\0134"'
+
 
 # User specific aliases and functions
 #JDEMEYER_BEGIN
