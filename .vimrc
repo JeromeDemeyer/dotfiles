@@ -1,6 +1,6 @@
 ".vimrc
 "$Id$
-"(2014) Jerome Demeyer - intended use: PuTTY > Linux > Screen > vim
+"(2013) Jerome Demeyer - intended use: PuTTY > Linux > Screen > vim
 set encoding=utf8
 set ffs=unix,dos,mac
 
@@ -22,33 +22,18 @@ set tabstop=3
 set shiftwidth=3
 set softtabstop=3
 
-" WiLdMoDe !
-set wildmenu
-set wildmode=list:longest,full
-
 " options de recherche
 set ignorecase "insensible a la casse
 set smartcase  "mais pas tant que ca
 set incsearch  "lance la recherche en meme temps que l'on tape
 
-" Option de folding semi-auto sur l'indentation
-"set foldenable
-"set foldmethod=syntax
-"syn region myFold start="{" end="}" transparent fold
-"syn sync fromstart
-"inoremap <F9> <C-O>za
-"nnoremap <F9> za
-"onoremap <F9> <C-C> za
-"vnoremap <F9> zc
-
 " 16 couleurs en mode terminal
-if &term =~ "xterm" | let &t_Co=16 | endif 
-" 256 couleurs, ca ne fonctionne pas toujours tres bien 
+if &term =~ "xterm" | let &t_Co=16 | endif
 "if &term =~ "xterm-256color" | let &t_Co=256 | endif
 
 " Si on veut la souris dans VIM sous screen sous putty :
 " lancer screen avec l'option -X xterm
-"set mouse =a     " maintient le shift-click pour selectionner dans Xterm ou Putty
+" set mouse =a     " maintient le shift-click pour selectionner dans Xterm ou Putty
 map <F12> :Texplore<CR>
 
 " on reset toutes les couleurs !
@@ -58,12 +43,15 @@ if exists("syntax_on")
    syntax reset
 endif
 " coloration syntaxique
+"TODO
 syntax on
 hi Normal         ctermfg=LightGrey
-hi Comment        ctermfg=DarkGrey
+hi Comment        ctermfg=LightBlue
 hi Ignore         ctermfg=Grey
 hi Constant       ctermfg=Grey
-hi Todo           ctermfg=DarkRed  ctermbg=Yellow 
+hi Todo           ctermfg=DarkRed  ctermbg=Yellow
+hi Special        ctermfg=LightRed
+hi Todo           ctermfg=DarkRed  ctermbg=Yellow
 hi Special        ctermfg=LightRed
 hi Identifier     ctermfg=LightGreen
 hi Statement      ctermfg=LightGreen
@@ -77,12 +65,12 @@ hi ModeMsg        ctermfg=White  ctermbg=Blue
 hi Error          ctermfg=White  ctermbg=DarkRed
 hi ErrorMsg       ctermfg=White  ctermbg=DarkRed
 hi WarningMsg     ctermfg=Red    ctermbg=Black
-hi Search       cterm=underline ctermfg=White ctermbg=None 
-hi IncSearch    cterm=underline ctermfg=White ctermbg=None 
-hi LineNr         ctermfg=DarkGrey  
+hi Search       cterm=underline ctermfg=White ctermbg=None
+hi IncSearch    cterm=underline ctermfg=White ctermbg=None
+hi LineNr         ctermfg=DarkGrey
 hi NonText        ctermfg=DarkGrey
 hi StatusLine     ctermfg=LightGrey
-hi Visual         cterm=reverse 
+hi Visual         cterm=reverse
 
 
 "NERDTree
@@ -92,5 +80,4 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 hi VertSplit ctermbg=LightBlue ctermfg=Black  cterm=reverse
 hi Directory ctermfg=LightBlue
 
-"exit
-map <F10> :q!<CR>
+"EOF
