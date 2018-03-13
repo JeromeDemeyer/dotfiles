@@ -58,26 +58,26 @@ term xterm-256color
 
 caption always "%{Bk}%{+u} %="
 #hardstatus alwayslastline "%{Kk} %H %{kK}%{kw} %-w%50>%{BW} %n %t %{-}%+w%<%{- K}%{kk} %=%{K}%D %d %M %{B}|%{w} %c "
-hardstatus alwayslastline "%{Kk} %H %{kK}%{kw} %-w%50>%{BW} %n %t %{-}%+w%<%{- K}%{kk} %=%{K}%D %d %M %{B}|%{w} %c "
+hardstatus alwayslastline "%{Kr} @%{Kk} %H %{kw} %-w%50>%{BW}%n %t%{kw}%+w%<%{kk}%=%{K}%D %d %M %{B}│%{w} %c "
 
-bindkey "[D" prev  # change window with ctrl-left
-bindkey "[C" next  # change window with ctrl-right
+bindkey "\033[D" prev  # change window with ctrl-left
+bindkey "\033[C" next  # change window with ctrl-right
 
 # Scroll up with ctrl-up
-bindkey -d "[A" eval copy "stuff ^b"
-bindkey -m "[A" stuff ^b
+bindkey -d "\033[A" eval copy "stuff ^b"
+bindkey -m "\033[A" stuff ^b
 
 # Scroll Up with alt-PgUp
-bindkey -d "[5~" eval copy "stuff ^b"
-bindkey -m "[5~" "stuff ^b"
+bindkey -d "\033\033[5~" eval copy "stuff ^b"
+bindkey -m "\033\033[5~" "stuff ^b"
 
 # Scroll down with ctrl-down
-bindkey -d "[B" eval copy "stuff ^f"
-bindkey -m "[B" stuff ^f
+bindkey -d "\033[B" eval copy "stuff ^f"
+bindkey -m "\033[B" stuff ^f
 
 # Scroll down with alt-PgDn
-bindkey -d "[6~" eval copy "stuff ^f"
-bindkey -m "[6~" "stuff ^f"
+bindkey -d "\033\033[6~" eval copy "stuff ^f"
+bindkey -m "\033\033[6~" "stuff ^f"
 
 
 
@@ -105,12 +105,13 @@ bind X lockscreen
 #
 # default windows
 #
-screen -t local 0
+screen -t admin
+screen -t edit
+screen -t run
 chdir /var/log
-screen -t log 1 tail -f messages
-chdir ~/bin
-screen -t bin 2
-chdir ~/bin
-screen -t EDITOR 3 vim
+screen -t log
 chdir /tmp
-screen -t tmp 4
+screen -t tmp
+select 0
+
+#JeromeDemeyer2017
